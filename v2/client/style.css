@@ -1,5 +1,5 @@
 
-	#video
+	video
 	{
 		width:200px;
 	}
@@ -14,3 +14,7 @@
  video, #webcam div {
         border-radius: 5px
     }
+ 
+ canvas {
+     display: none;
+ }
