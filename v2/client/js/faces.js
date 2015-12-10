@@ -77,4 +77,9 @@ function emotionData(data) {
             text: mapEmotions[emotion] == null ? emotion : mapEmotions[emotion]
         }, f.faceRectangle)
     }))
+
+    if(data.length)
+        updateVideoEmotions(data.map(function (f) {
+            return maxEmotion(f.scores)
+        }))
 }

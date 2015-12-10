@@ -42,7 +42,8 @@
 
     }
 
-    function updateVideo(emotion) {
+    function updateVideo(emotions) {
+        var emotion = emotions[0]
         if (emotion=='neutral') {
             alert('neutral')
         }
