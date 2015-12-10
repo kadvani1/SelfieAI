@@ -6,12 +6,6 @@ var canvas = document.getElementById('photo');
 var ctx = canvas.getContext('2d');
 var localMediaStream = null;
 
-var DELAY = 3500
-
-function choose(arr) {
-    return arr[Math.floor(Math.random() * arr.length)]
-}
-
 function capture() {
     ctx.drawImage(video, 0, 0);
     var img = document.createElement('img');
@@ -19,7 +13,7 @@ function capture() {
     img.src = dataURL;
     console.log(img.src);
     upload(dataURItoBlob(dataURL))
-        // document.body.appendChild(img)
+    // document.body.appendChild(img)
 }
 
 function dataURItoBlob(dataURI) {
@@ -39,25 +33,21 @@ function dataURItoBlob(dataURI) {
         ia[i] = byteString.charCodeAt(i);
     }
 
-    return new Blob([ia], {
-        type: mimeString
-    });
+    return new Blob([ia], {type: mimeString});
 }
 
 function detect(imageDataBlob) {
     return $.ajax({
             url: "https://api.projectoxford.ai/face/v1.0/detect?returnFaceAttributes=age,gender,headPose,smile,facialHair",
-            beforeSend: function(xhrObj) {
+            beforeSend: function (xhrObj) {
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type", 'application/octet-stream');
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",
-                    choose(["06b15672a0824d9baf9a6bb436107aad", "eb6e0170133744c4a38c511ff5074565", "2e87d66f93c241dd8ec805d09c38f92b", "f7b776d5d3a84e3a9f48f3ff12d067af"]));
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "84633bf2c350462ca105e4435aa317ae");
             },
             type: "POST",
             // Request body
             data: imageDataBlob,
-            processData: false,
-            timeout: DELAY - 1000
+            processData: false
         })
         .done(function (data) {
             console.log("success");
@@ -74,14 +64,12 @@ function emotion(imageDataBlob) {
             beforeSend: function (xhrObj) {
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type", 'application/octet-stream');
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",
-                    choose(["4f40e5da04db40289f7fe28b1e5b9ae7", "d9cf482cc7d14f2cb4c3ac478e82bf33", "e1276d5f08ae438ca10b0a7c19ef4e8c", "c14f3203d1904ec298aca7c44efd89dd", "3debebcc0f37452aa435e081683b4faa"]));
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "e1276d5f08ae438ca10b0a7c19ef4e8c");
             },
             type: "POST",
             // Request body
             data: imageDataBlob,//.replace(/^data:image.+;base64,/, ""),
-            processData: false,
-            timeout: DELAY - 1000
+            processData: false
         })
         .done(function (data) {
             console.log("success");
@@ -119,18 +107,18 @@ function emotion(imageDataBlob) {
                           age: dd.faceAttributes.age,
                           gender: dd.faceAttributes.gender,
                           emotion: maxEmotion,
-                          beard: Math.round(dd.faceAttributes.facialHair.beard * 10) / 10,
-                          moustache: Math.round(dd.faceAttributes.facialHair.moustache * 10) / 10,
-                          smile: dd.faceAttributes.smile == null ? 0 : Math.round(dd.faceAttributes.smile * 10) / 10,
-                          happiness: ee.scores.happiness
+                          beard: dd.faceAttributes.facialHair.beard,
+                          moustache: dd.faceAttributes.facialHair.moustache,
+                          smile: dd.faceAttributes.smile
                       }
                       people.push(person)
                         return "<li>" +
                             "<ul>" +
-                            "<li>" + (person.gender=="male"?"Male":"Female") + " aged " + person.age + "</li>" +
-                            "<li>Beard: " + person.beard + "</li>" +
-                            "<li>Moustache: " + person.moustache + "</li>" +
-                            "<li>Smile: " + person.smile + "</li>" +
+                            "<li>Age: " + dd.faceAttributes.age + "</li>" +
+                            "<li>Gender: " + dd.faceAttributes.gender + "</li>" +
+                            "<li>Beard: " + dd.faceAttributes.facialHair.beard + "</li>" +
+                            "<li>Moustache: " + dd.faceAttributes.facialHair.moustache + "</li>" +
+                            "<li>Smile: " + dd.faceAttributes.smile + "</li>" +
                             "<li>Emotion: " + maxEmotion + " </li>" +
                             "</ul>"
                             + "</li>"
@@ -138,6 +126,7 @@ function emotion(imageDataBlob) {
                       }
                 }) + "</ol>")
 
+          updateVideo(people)
 
             $(".facebox").remove()
             people.forEach(function(p) {
@@ -156,34 +145,6 @@ function emotion(imageDataBlob) {
             setTimeout(function () {
                 $(".facebox").remove()
             }, 1000)
-
-
-
-            // //Pietro
-            // var ages = []
-            // var genders = []
-            // people.forEach(function(p) {
-            //     ages.push(p.age);
-            //     genders.push(p.gender == 'male' ? 'm' : 'f')
-            // })
-
-            // $.get("http://54.88.61.20/?num=" + people.length + "&ages=" + ages.join(',') + "&genders=" + genders.join(','), function(data) {
-
-            //     try {
-            //         if (data.matches) {
-            //             $(".suggestions").empty().append("<p style='font-size: smaller; font-variant: small-caps;margin:0;padding:0'>You may also like:</p>").append("<p>" + data.matches.name + "<p>").append("<img style='height: " + 90 + "px; width: " + 120 + "px;' src='http://54.88.61.20/" + data.matches.thumb + "'/>");
-            //         }
-
-            //     } catch (e) {
-
-            //     }
-
-
-
-
-            // });
-            // //End Pietro
-
         })
     })
 }
@@ -212,7 +173,7 @@ navigator.getUserMedia({video: true}, function (stream) {
             console.log("Setting height", video.videoHeight)
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-            setInterval(capture, DELAY)
+            setInterval(capture, 4000)
             capture()
         }
     }
@@ -221,7 +182,7 @@ navigator.getUserMedia({video: true}, function (stream) {
 
     // Since video.onloadedmetadata isn't firing for getUserMedia video, we have
     // to fake it.
-    setTimeout(launch, 8000);
+    setTimeout(launch, 4000);
 }, function () {
     console.log("No video :(")
 });

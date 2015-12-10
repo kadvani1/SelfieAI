@@ -4,16 +4,15 @@ function changePhoto(fname) {
 
 // Actions
     function updateVideo(people) {
-        if (people.length == 1 && people[0].gender == 'male')  {
-            changePhoto('newyork.png')
-            console.log('male')
+        if (people.length {
+            changePhoto('paris')
         }
-        else if (people.length == 1 &&people[0].emotion=='happiness') {
-            changePhoto('ibiza.png')
-        }
-         else if (people.length == 1 &&people[0].gender=='female') {
-            changePhoto('paris.png')
-        }
+        // else if (people.length == 1 &&people[0].emotion=='happiness') {
+        //     changePhoto('ibiza.png')
+        // }
+        //  else if (people.length == 1 &&people[0].gender=='female') {
+        //     changePhoto('paris.png')
+        // }
 
     }
 
