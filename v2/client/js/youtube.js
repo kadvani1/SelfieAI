@@ -42,11 +42,10 @@
 
     }
 
-    function updateVideo(people) {
-        if (mapEmotions=='happiness') {
-            changeVideo('gopro');
+    function updateVideo(emotion) {
+        if (emotion=='neutral') {
+            alert('neutral')
         }
-        
 
     }
 
