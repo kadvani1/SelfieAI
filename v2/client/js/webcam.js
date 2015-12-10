@@ -7,11 +7,11 @@ var webcam;
 
 $(function () {
     var video = document.querySelector('video'),
-        canvas = document.getElementById('photo')
+        canvases = $("canvas").toArray()
     webcam = {
         video: video,
-        canvas: canvas,
-        ctx: canvas.getContext('2d'),
+        canvases: canvases,
+        latest: 0,
         launch: function launchWebcam() {
             return $.Deferred(function (def) {
                 navigator.getUserMedia({video: true}, function (stream) {
@@ -21,7 +21,7 @@ $(function () {
                 })
             }).promise()
         },
-        run: function(errHandler) {
+        run: function(canvasDimension, errHandler) {
             return webcam.launch().then(function (stream) {
                 if (window.URL) video.src = window.URL.createObjectURL(stream); else video.src = stream;
                 video.onerror = function (e) {
@@ -32,32 +32,33 @@ $(function () {
 
                 return $.Deferred(function (def) {
                     video.onloadedmetadata = function () {
-                        var size = webcam.getSize()
-                        canvas.width = size.w;
-                        canvas.height = size.h;
+                        var size = webcam.getSize(),
+                            factor = 1
+                        if(canvasDimension) {
+                            if(size.w > size.h) {
+                                if(size.w > canvasDimension) {
+                                    factor = canvasDimension / size.w
+                                }
+                            } else {
+                                if(size.h > canvasDimension) {
+                                    factor = canvasDimension / size.h
+                                }
+                            }
+                        }
+                        _.each(canvases, function (canvas) {
+                            canvas.width = size.w * factor;
+                            canvas.height = size.h * factor;
+                        })
+                        webcam.trackingCanvas = canvases.shift()
+                        webcam.showWidth = $(webcam.video).width()
                         def.resolve()
                     }
                 }).promise()
             })
         },
         snap: function capture(maxDimension) {
-            if(maxDimension) {
-                var maxSize = webcam.getSize(),
-                    factor = 1;
-                if(maxSize.w > maxSize.h) {
-                    if(maxSize.w > maxDimension) {
-                        factor = maxDimension / maxSize.w
-                    }
-                } else {
-                    if(maxSize.h > maxDimension) {
-                        factor = maxDimension / maxSize.h
-                    }
-                }
-                canvas.width = maxSize.w * factor;
-                canvas.height = maxSize.h * factor;
-                webcam.ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            } else webcam.ctx.drawImage(video, 0, 0);
-
+            var canvas = canvases[webcam.latest++ % canvases.length]
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
             var dataURL = canvas.toDataURL('img/png');
             return {
                 blob: dataURItoBlob(dataURL),
@@ -68,6 +69,22 @@ $(function () {
             return {
                 w: video.videoWidth,
                 h: video.videoHeight
+            }
+        },
+        testSnap: function () {
+            var canvas = webcam.trackingCanvas
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        },
+        track: function () {
+            if(webcam.faceTracker) {
+                webcam.testSnap()
+                webcam.faceTracker.track(webcam.trackingCanvas)
+                var trackingResult = webcam.faceTracker.getTrackObj()
+                $("#webcam").append(fbox({
+                    top: trackingResult.y - trackingResult.height / 2,
+                    left: trackingResult.x - trackingResult.width / 2,
+                    width: trackingResult.width, height: trackingResult.height
+                }, webcam.showWidth / webcam.trackingCanvas.width, 'yellow', null, 1))
             }
         }
     }
@@ -94,3 +111,4 @@ function dataURItoBlob(dataURI) {
         type: mimeString
     });
 }
+

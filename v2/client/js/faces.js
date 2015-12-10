@@ -7,19 +7,25 @@ function showRectangles(positions) {
         if(positions[0].faceRectangle)
             positions = _.map(positions, 'faceRectangle')
         positions.forEach(function (pos) {
-            var factor = $(webcam.video).width() / webcam.canvas.width
-            var top = Math.round(pos.top * factor);
-            var left = Math.round(pos.left * factor);
-            var width = Math.round(pos.width * factor);
-            var height = Math.round(pos.height * factor);
-            var facebox = $("<div class='facebox' style='border:3px solid " +
-                (pos.colour || 'green') + "; position: absolute; text-align: center; font-size: 3em;'>" +
-                    (pos.text||'') +
-                "</div>")
-                .css({top: top + "px", left: left + "px", width: width + "px", height: height + "px", color: pos.colour||'green'})
+            var factor = $(webcam.video).width() / webcam.canvases[0].width
+            var facebox = fbox(pos, factor, pos.color, pos.text)
             $("#webcam").append(facebox)
         })
     }
+}
+
+function fbox(pos, factor, colour, text, width) {
+    function r(num) {
+        return Math.round(num * factor) + "px"
+    }
+
+    return $("<div class='facebox' style='border:" + (width || 3) +
+        "px solid " +
+        (colour || 'green') + "; text-align: center; font-size: 3em;'>" +
+        (text||'') +
+        "</div>")
+        .css({top: r(pos.top), left: r(pos.left), width: r(pos.width), height: r(pos.height),
+            color: colour||'green', position: 'absolute'})
 }
 
 function faceData(data) {

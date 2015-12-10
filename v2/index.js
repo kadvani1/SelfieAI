@@ -19,12 +19,14 @@ app.use(express.static('../SelfieTV'));
 io.on('connection', function(socket){
     console.log('a user connected');
     var busyCalls = {faces: false, emotions: false}
+    var counter = 0
     socket.on('image', function(blob){
+        var count = counter++
         console.log(new Date().toLocaleTimeString())
         if(!busyCalls['faces']) {
             using(callSlot(busyCalls, 'faces'), function () {
                 projectOxford.detectFaces(blob, "age,gender").then(function (data) {
-                    socket.emit('faces', data)
+                    socket.emit('faces', count + "$" + data)
                     console.log('n faces', JSON.parse(data).length, new Date().toLocaleTimeString(), data)
                 }).catch(StatusCodeError, function (e) {
                     console.error('faces', e.statusCode, e.message)
@@ -37,7 +39,7 @@ io.on('connection', function(socket){
         if(!busyCalls['emotions']) {
             using(callSlot(busyCalls, 'emotions'), function () {
                 projectOxford.emotions(blob).then(function (data) {
-                    socket.emit('emotions', data)
+                    socket.emit('emotions', count + "$" + data)
                     console.log('n emotions', JSON.parse(data).length, new Date().toLocaleTimeString(), data)
                 }).catch(StatusCodeError, function (e) {
                     console.error('emotions', e.statusCode, e.message)

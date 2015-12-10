@@ -53,9 +53,8 @@
     function updateVideoEmotions(emotions) {
         var emotion = emotions[0]
         if (emotion=='neutral') {
-            alert('neutral')
+            console.log('neutral')
         }
-
     }
 
     var justSwitched = false
