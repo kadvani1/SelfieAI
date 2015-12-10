@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <title>SelfieTV</title>
     <script src="vendor/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <div id="player"></div>
     <div id="webcam">
-        <video autoplay id="vid"></video>
+        <video style="width:200px" autoplay id="vid"></video>
         <canvas id="photo"></canvas>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="vendor/lodash/lodash.min.js"></script>
+    <script src="js/youtube.js"></script>
     <script src="js/faces.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/webcam.js"></script>
