@@ -1,3 +1,3 @@
 # SelfieAI
 www.selfieai.com
-[logo]:https://github.com/kadvani1/SelfieAI/images/demo.png "Version 1"
+![Version 1] (https://github.com/kadvani1/SelfieAI/images/demo.png "Version 1")
