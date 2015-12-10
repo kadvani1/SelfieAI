@@ -33,7 +33,7 @@ function faceData(data) {
         }, f.faceRectangle)
     }))
 
-    updateVideo(data.map(function (f) {
+    updateVideoDetect(data.map(function (f) {
         //function run on each face returned by detect
         return {
             gender: f.faceAttributes.gender,

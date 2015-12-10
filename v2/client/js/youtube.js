@@ -42,7 +42,15 @@
 
     }
 
-    function updateVideo(emotions) {
+    function updateVideoDetect(people) {
+        if (people.length == 1 && people[0].gender == 'male') {
+            console.log("Normal")
+        } else {
+            console.log("Who is this?")
+        }
+    }
+
+    function updateVideoEmotions(emotions) {
         var emotion = emotions[0]
         if (emotion=='neutral') {
             alert('neutral')
