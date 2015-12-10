@@ -7,7 +7,7 @@ function showRectangles(positions) {
         if(positions[0].faceRectangle)
             positions = _.map(positions, 'faceRectangle')
         positions.forEach(function (pos) {
-            var factor = webcam.video.videoWidth / webcam.canvas.width
+            var factor = $(webcam.video).width() / webcam.canvas.width
             var top = Math.round(pos.top * factor);
             var left = Math.round(pos.left * factor);
             var width = Math.round(pos.width * factor);
@@ -31,6 +31,14 @@ function faceData(data) {
             colour: f.faceAttributes.gender == 'male' ? 'blue' : 'pink',
             text: parseInt(f.faceAttributes.age)
         }, f.faceRectangle)
+    }))
+
+    updateVideo(data.map(function (f) {
+        //function run on each face returned by detect
+        return {
+            gender: f.faceAttributes.gender,
+            age: parseInt(f.faceAttributes.age)
+        }
     }))
 
     var gender = _.groupBy(data, function (f) {
