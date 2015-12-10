@@ -43,18 +43,10 @@
     }
 
     function updateVideo(people) {
-        if (people.length == 1 && people[0].gender == 'male') {
-            changeVideo('national')
-        } else if (people.length && people[0].gender == 'female') {
-            changeVideo('sex in the city')
-        } else if (people.length == 2) {
-            changeVideo('mission')
-
-        } else if (people.length == 3) {
-            changeVideo('star wars')
-        } else if (people.length > 4) {
-            changeVideo('wing')
+        if (mapEmotions=='happiness') {
+            changeVideo('gopro');
         }
+        
 
     }
 

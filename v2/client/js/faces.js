@@ -60,7 +60,12 @@ function maxEmotion(scores) {
 var mapEmotions = {
     'happiness': ':)',
     'sadness': ':(',
-    'neutral': ''
+    'neutral': ':I',
+    'anger': 'anger',
+    'disgust': 'disgust',
+    'contempt':'contempt',
+    'fear':'fear',
+    'surprise':':O' 
 }
 
 function emotionData(data) {
