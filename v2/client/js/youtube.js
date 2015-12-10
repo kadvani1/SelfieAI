@@ -24,7 +24,6 @@
         'wing': 'o6mPnvrBYrE',
     }
 
-
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
             height: window.innerHeight,
@@ -46,12 +45,10 @@
     function updateVideo(people) {
         if (people.length == 1 && people[0].gender == 'male') {
             changeVideo('national')
-                // $("#adtext").empty().append($("<p></p>").text('Buy The National Geographic Movie'))
         } else if (people.length && people[0].gender == 'female') {
             changeVideo('sex in the city')
         } else if (people.length == 2) {
             changeVideo('mission')
-                // $("#adtext").empty().append($("<p></p>").text('Buy The Mission Impossible Movie'))
 
         } else if (people.length == 3) {
             changeVideo('star wars')
