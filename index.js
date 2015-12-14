@@ -54,7 +54,7 @@ io.on('connection', function(socket){
     });
 });
 
-var server = http.listen(4000, function () {
+var server = http.listen(process.env.PORT || 4000, function () {
     var host = server.address().address;
     var port = server.address().port;
 
