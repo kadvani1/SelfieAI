@@ -5,6 +5,7 @@
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     var player;
+    var done = false;
 
     var videos = {
         'sex in the city': 'a6738DN4I3s',
@@ -21,7 +22,7 @@
         'national': 'cr-er44rr2M',
         'bond': 'BsBd9tPK4uE',
         'mission': 'TTrUyOvsHeM',
-        'wing': 'o6mPnvrBYrE',
+        'wing': 'o6mPnvrBYrE'
     }
 
     function onYouTubeIframeAPIReady() {
