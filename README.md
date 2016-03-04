@@ -10,7 +10,7 @@ www.selfieai.com
 
 ##Version 10
 - (Kingsley) Typewriter Added
-![V9](https://github.com/kadvani1/SelfieAI/blob/master/v10/img/v10.gif)
+![V10](https://media.giphy.com/media/l2JJsRONVBujEepsA/giphy.gif)
 
 ##Version 9
 - (Kingsley) Emojis Added
