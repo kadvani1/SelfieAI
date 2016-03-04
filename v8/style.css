@@ -3,13 +3,16 @@ body {
     font-family: 'Andale Mono', AndaleMono, monospace;
 
 }
-    
-      #player {
-        position: absolute;
-        color: white;
-        font-size: x-large;
-        background-image: /img/candle.jpg
-    }
+
+#box{
+    width: 600px;
+    height: 400px;
+    background-color: lavender;
+    border: solid 1px silver;
+    box-shadow: 0px 3px 5px 1px silver;
+    margin-left: auto;
+    margin-right: auto;
+}
 
     #webcam {
         position: absolute;

@@ -4,8 +4,10 @@ var video = document.querySelector('video');
 var canvas = document.getElementById('photo');
 var ctx = canvas.getContext('2d');
 var localMediaStream = null;
-
 var DELAY = 3500
+
+
+
 
 function choose(arr) {
     return arr[Math.floor(Math.random() * arr.length)]
@@ -98,6 +100,15 @@ function emotion(imageDataBlob) {
             console.log(e)
         });
 }
+
+// Color Changer
+
+function ran_col() { //function name
+                var color = '#'; // hexadecimal starting symbol
+                var letters = ['000000','FF0000','00FF00','0000FF','FFFF00','00FFFF','FF00FF','C0C0C0']; //Set your colors here
+                color += letters[Math.floor(Math.random() * letters.length)];
+                document.getElementById('box').style.background = color; // Setting the random color on your div element.
+            }
 
 //JSON data
 
