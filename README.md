@@ -1,4 +1,4 @@
-# SelfieAI - Every User Experience Should Be Frictionless
+# SelfieAI - Computer Vision Emotions
 www.selfieai.com
 ##Version 8 (Submit to Microsoft 31st March 2016)
 - Debug timeout error to get results (Phani)
