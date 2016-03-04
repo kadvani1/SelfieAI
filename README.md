@@ -14,7 +14,7 @@ www.selfieai.com
 
 ##Version 8
 - (Kingsley) Javascript Colour Emotion Visualizer Added
-![V8](https://github.com/kadvani1/SelfieAI/blob/master/images/v8.png)
+![V8](https://github.com/kadvani1/SelfieAI/blob/master/v8/img/v8.png)
 
 
 ##Version 7
