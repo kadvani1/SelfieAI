@@ -10,11 +10,11 @@ www.selfieai.com
 
 ##Version 9
 - (Kingsley) Emojis Added
-![V9](https://github.com/kadvani1/SelfieAI/blob/master/v9/img/v9.png
+![V9](https://github.com/kadvani1/SelfieAI/blob/master/v9/img/v9.png)
 
 ##Version 8
 - (Kingsley) Javascript Colour Emotion Visualizer Added
-![V8](https://github.com/kadvani1/SelfieAI/blob/master/images/v8.png
+![V8](https://github.com/kadvani1/SelfieAI/blob/master/images/v8.png)
 
 
 ##Version 7
