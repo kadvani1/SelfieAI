@@ -8,6 +8,11 @@ www.selfieai.com
 - Test Webcam Permission Across Browers (Phani)
 - Submit to Microsoft Project Oxford Gallery with update by 31st March 2016 (Kingsley)
 
+##Version 8
+- (Kingsley) Javascript Colour Emotion Visualizer Added
+![V8](https://github.com/kadvani1/SelfieAI/blob/master/images/v8.png
+
+
 ##Version 7
 - Emotions not detecting
 - YouTube API removed for easier testing
