@@ -7,6 +7,7 @@ www.selfieai.com
 - Upload Online To Server (Phani)
 - Test Webcam Permission Across Browers (Phani)
 - Submit to Microsoft Project Oxford Gallery with update by 31st March 2016 (Kingsley)
+- Submit data API to Airbnb
 
 ##Version 10
 - (Kingsley) Typewriter Added
